@@ -14,6 +14,7 @@ namespace HCCS.Infrastructure.TableEntityConfiguration
             builder.Property(x => x.LastModifiedDate).HasMaxLength(250).IsRequired();
             builder.Property(x => x.CreatedDate).HasMaxLength(250).IsRequired();
             builder.Property(x => x.Enable).IsRequired();
+            
         }
     }
 }

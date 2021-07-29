@@ -5,5 +5,6 @@ namespace HCCS.Aplicaction.Interfaces
     {
         string UserId { get; }
         string UserName { get; }
+        int BranchOfficeId { get; }
     }
 }

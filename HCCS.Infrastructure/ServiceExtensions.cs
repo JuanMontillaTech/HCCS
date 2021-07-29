@@ -21,6 +21,7 @@ namespace HCCS.Infrastructure
             #region Services            
             services.AddTransient<IUnitOfWork, UnitOfWork>();
             services.AddTransient(typeof(IRepository<>), typeof(Repository<>));
+            services.AddTransient<IUserService, UserService>();
             #endregion
 
         }

@@ -22,6 +22,7 @@ namespace HCCS.Aplicaction
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly()); 
             services.AddTransient<IProfileService, ProfileService>();
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<IAccountingService,  AccountingService>();
         }
     }
 }

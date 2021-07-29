@@ -62,9 +62,7 @@ namespace HCCS.Aplicaction.Service
             this._repositoryUser.Add(user);
             _unitOfWork.Commit();
             return user;
-        }
-
-         
+        }         
 
         User IUserService.Update(User user)
         {
@@ -81,7 +79,7 @@ namespace HCCS.Aplicaction.Service
             return this._repositoryUser.GetAll().Where(x => x.Id == id)
                  .Include(x => x.Profiles)
                      .ThenInclude(x => x.Profile)
-                         .ThenInclude(x => x.Permissions)
+                         .ThenInclude(x => x.Permissions)  
                  .FirstOrDefault();
         }
     }

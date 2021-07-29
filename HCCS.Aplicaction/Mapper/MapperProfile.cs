@@ -3,6 +3,7 @@ using AutoMapper;
 using HCCS.Domain.Entities;
 using HCCS.Aplicaction.DTOs;
 using HCCS.Domain.Common;
+using HCCS.Domain.Entities.Accounting;
 
 namespace HCCS.Aplicaction.Mapper
 {
@@ -25,6 +26,9 @@ namespace HCCS.Aplicaction.Mapper
             CreateMap<Domain.Entities.Security.User, UserSingleDTO>();
             CreateMap<UserAddDTO, Domain.Entities.Security.User>();
             CreateMap<Page<Domain.Entities.Security.User>, Page<UserDTO>>();
+            CreateMap<ResultStatus, ResultStatusDto>().ReverseMap();
+            CreateMap<ResultStatusDetails, ResultStatusDetailsDto>().ReverseMap();
+            CreateMap<AccountingAccount, AccountsDto>().ReverseMap(); 
 
         }
     }

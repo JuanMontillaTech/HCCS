@@ -4,14 +4,16 @@ using HCCS.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HCCS.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20210725023348_CompanyResultStatus")]
+    partial class CompanyResultStatus
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -1027,47 +1029,6 @@ namespace HCCS.Infrastructure.Migrations
                     b.ToTable("ResultStatus");
                 });
 
-            modelBuilder.Entity("HCCS.Domain.Entities.Accounting.ResultStatusDetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccountingAccountId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AccountingAccountNumber")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Enable")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ResultStatusId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResultStatusId");
-
-                    b.ToTable("ResultStatusDetails");
-                });
-
             modelBuilder.Entity("HCCS.Domain.Entities.Accounting.TypeAcountingAcount", b =>
                 {
                     b.Property<int>("Id")
@@ -1818,17 +1779,6 @@ namespace HCCS.Infrastructure.Migrations
                     b.Navigation("BranchOffice");
                 });
 
-            modelBuilder.Entity("HCCS.Domain.Entities.Accounting.ResultStatusDetails", b =>
-                {
-                    b.HasOne("HCCS.Domain.Entities.Accounting.ResultStatus", "ResultStatus")
-                        .WithMany("ResultStatusDetails")
-                        .HasForeignKey("ResultStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ResultStatus");
-                });
-
             modelBuilder.Entity("HCCS.Domain.Entities.Company.BranchOffice", b =>
                 {
                     b.HasOne("HCCS.Domain.Entities.Company.Company", "Company")
@@ -1949,11 +1899,6 @@ namespace HCCS.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("HCCS.Domain.Entities.Accounting.ResultStatus", b =>
-                {
-                    b.Navigation("ResultStatusDetails");
                 });
 
             modelBuilder.Entity("HCCS.Domain.Entities.Security.Permission", b =>

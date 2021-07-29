@@ -20,8 +20,6 @@ namespace HCCS.Api
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-
-
         }
 
         public IConfiguration Configuration { get; }
@@ -50,9 +48,7 @@ namespace HCCS.Api
             });
 
             #endregion
-            services.AddControllers();
-            services.AddSpaStaticFiles(options => options.RootPath = "client-app/dist");
-
+             
             services.AddHttpContextAccessor();
             services.AddApplicationLayer();
             services.AddIdentityInfrastructure(Configuration);
@@ -116,17 +112,7 @@ namespace HCCS.Api
                 endpoints.MapControllers().RequireAuthorization(PolicyConst.ApiScope.PolicyName); 
             });
 
-
-            app.UseSpaStaticFiles();
-            //app.UseSpa(spa =>
-            //{
-            //    spa.Options.SourcePath = "client-app";
-            //    if (env.IsDevelopment())
-            //    {
-            //        // Launch development server for Nuxt
-            //        spa.UseNuxtDevelopmentServer();
-            //    }
-            //});
+             
         }
     }
 }

@@ -4,14 +4,16 @@ using HCCS.Infrastructure.Contexts;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace HCCS.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    partial class ApplicationContextModelSnapshot : ModelSnapshot
+    [Migration("20210725012430_accounting")]
+    partial class accounting
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -980,94 +982,6 @@ namespace HCCS.Infrastructure.Migrations
                         });
                 });
 
-            modelBuilder.Entity("HCCS.Domain.Entities.Accounting.ResultStatus", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("BranchOfficeId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Code")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateEnd")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("DateStart")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Employees")
-                        .HasColumnType("int");
-
-                    b.Property<bool>("Enable")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Sisters")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BranchOfficeId");
-
-                    b.ToTable("ResultStatus");
-                });
-
-            modelBuilder.Entity("HCCS.Domain.Entities.Accounting.ResultStatusDetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AccountingAccountId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("AccountingAccountNumber")
-                        .HasColumnType("int");
-
-                    b.Property<decimal?>("Amount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("Enable")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("ResultStatusId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ResultStatusId");
-
-                    b.ToTable("ResultStatusDetails");
-                });
-
             modelBuilder.Entity("HCCS.Domain.Entities.Accounting.TypeAcountingAcount", b =>
                 {
                     b.Property<int>("Id")
@@ -1157,111 +1071,6 @@ namespace HCCS.Infrastructure.Migrations
                             Debit = false,
                             Description = "Gastos",
                             Enable = false
-                        });
-                });
-
-            modelBuilder.Entity("HCCS.Domain.Entities.Company.BranchOffice", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CompanyId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Enable")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TaxIdentification")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CompanyId");
-
-                    b.ToTable("BranchOffice");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CompanyId = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Enable = false,
-                            Name = "Branch Default"
-                        });
-                });
-
-            modelBuilder.Entity("HCCS.Domain.Entities.Company.Company", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("CreatedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Enable")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("LastModifiedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("LastModifiedDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<byte[]>("Logo")
-                        .HasColumnType("varbinary(max)");
-
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Phone")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TaxIdentification")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Company");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CreatedDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Enable = false,
-                            Name = "Company Default"
                         });
                 });
 
@@ -1463,9 +1272,6 @@ namespace HCCS.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
-                    b.Property<int>("BranchOfficeId")
-                        .HasColumnType("int");
-
                     b.Property<string>("CreatedBy")
                         .IsRequired()
                         .HasMaxLength(250)
@@ -1511,8 +1317,6 @@ namespace HCCS.Infrastructure.Migrations
                         .HasColumnType("nvarchar(100)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BranchOfficeId");
 
                     b.ToTable("User");
                 });
@@ -1807,39 +1611,6 @@ namespace HCCS.Infrastructure.Migrations
                     b.Navigation("TypeAcountingAcount");
                 });
 
-            modelBuilder.Entity("HCCS.Domain.Entities.Accounting.ResultStatus", b =>
-                {
-                    b.HasOne("HCCS.Domain.Entities.Company.BranchOffice", "BranchOffice")
-                        .WithMany()
-                        .HasForeignKey("BranchOfficeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BranchOffice");
-                });
-
-            modelBuilder.Entity("HCCS.Domain.Entities.Accounting.ResultStatusDetails", b =>
-                {
-                    b.HasOne("HCCS.Domain.Entities.Accounting.ResultStatus", "ResultStatus")
-                        .WithMany("ResultStatusDetails")
-                        .HasForeignKey("ResultStatusId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("ResultStatus");
-                });
-
-            modelBuilder.Entity("HCCS.Domain.Entities.Company.BranchOffice", b =>
-                {
-                    b.HasOne("HCCS.Domain.Entities.Company.Company", "Company")
-                        .WithMany()
-                        .HasForeignKey("CompanyId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Company");
-                });
-
             modelBuilder.Entity("HCCS.Domain.Entities.Security.Permission", b =>
                 {
                     b.HasOne("HCCS.Domain.Entities.Security.Group", "Group")
@@ -1868,17 +1639,6 @@ namespace HCCS.Infrastructure.Migrations
                     b.Navigation("Permission");
 
                     b.Navigation("Profile");
-                });
-
-            modelBuilder.Entity("HCCS.Domain.Entities.Security.User", b =>
-                {
-                    b.HasOne("HCCS.Domain.Entities.Company.BranchOffice", "BranchOffice")
-                        .WithMany()
-                        .HasForeignKey("BranchOfficeId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("BranchOffice");
                 });
 
             modelBuilder.Entity("HCCS.Domain.Entities.Security.UserProfile", b =>
@@ -1949,11 +1709,6 @@ namespace HCCS.Infrastructure.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("HCCS.Domain.Entities.Accounting.ResultStatus", b =>
-                {
-                    b.Navigation("ResultStatusDetails");
                 });
 
             modelBuilder.Entity("HCCS.Domain.Entities.Security.Permission", b =>

@@ -2,8 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Reflection;
-using HCCS.Domain.Entities;
+using System.Reflection; 
 using HCCS.Domain.Common;
 using HCCS.Aplicaction.Interfaces;
 
@@ -36,6 +35,31 @@ namespace HCCS.Infrastructure.Contexts
                         break;
                 }
             }
+            foreach (var entry in ChangeTracker.Entries<AuditWithBranchOffice>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+                       
+                        entry.Entity.BranchOfficeId = _currentUserService.BranchOfficeId;                        
+                        break;
+                      
+                }
+            }
+            foreach (var entry in ChangeTracker.Entries<AuditBranchOffice>())
+            {
+                switch (entry.State)
+                {
+                    case EntityState.Added:
+
+                        entry.Entity.BranchOfficeId = _currentUserService.BranchOfficeId;
+                        break;
+
+                }
+            }
+            
+
+
             return base.SaveChanges();
         }
 

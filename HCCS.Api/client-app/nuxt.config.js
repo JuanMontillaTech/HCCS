@@ -76,7 +76,9 @@ module.exports = {
         '@nuxtjs/pwa',
         '@nuxtjs/auth-next',
     ],
-
+  router: {
+    middleware: ['auth']
+  },
     auth: {
         redirect: {
             callback: '/callback',
