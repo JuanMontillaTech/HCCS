@@ -7,6 +7,6 @@ namespace HCCS.Aplicaction.DTOs
 {
    public  class ResultStatusDetailsDto : ResultStatusDto
     {
-        public List<ResultStatusDetails>  ResultStatusDetails { get; set; }
+        public List<AccountsDto>  ResultStatusDetails { get; set; }
     }
 }

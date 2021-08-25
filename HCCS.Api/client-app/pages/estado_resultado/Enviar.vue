@@ -40,6 +40,7 @@
                           @on-close="blur"
                           :config="{ allowInput: true }"
                           class="form-control datepicker"
+                          v-model="ResultStatusDto.dateStart"
                         >
                         </flat-picker>
                       </base-input>
@@ -56,6 +57,7 @@
                           @on-close="blur"
                           :config="{ allowInput: true }"
                           class="form-control datepicker"
+                          v-model="ResultStatusDto.dateEnd"
                         >
                         </flat-picker>
                       </base-input>
@@ -63,11 +65,12 @@
                   </div>
 
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <base-input
-                        label="Insitutcion"
-                        name="Insitutcion"
+                        label="Institucion"
+                        name="Institucion"
                         :rules="{ required: true }"
+                        v-model="ResultStatusDto.institution"
                       ></base-input>
                     </div>
                     <div class="col-md-4">
@@ -75,43 +78,118 @@
                         label="Codigo"
                         name="Codigo"
                         :rules="{ required: true }"
+                        v-model="ResultStatusDto.code"
                       ></base-input>
                     </div>
                   </div>
                   <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-md-4">
                       <base-input
                         label="No. Hnas"
                         name="No. Hnas"
                         :rules="{ required: true }"
-                      ></base-input>
+                      >
+                      </base-input>
                     </div>
                     <div class="col-md-4">
                       <base-input
                         label="Empleados"
                         name="Empleados"
                         :rules="{ required: true }"
+                        v-model="ResultStatusDto.employees"
                       ></base-input>
                     </div>
                   </div>
-                  <div
-                    v-for="(item, index) in ResultStatusDetails"
-                    :key="index"
-                  >
-                    <div class="row">
-                      <div class="col-md-6">
-                        {{ item.accountNumber }} -
-                        {{ item.accountName }}
-                      </div>
-                      <div class="col-md-4">
-                        <base-input v-model="item.amount"></base-input>
-                      </div>
-                    </div>
-                  </div>
+        <div class="row">
+         <div class="col-8">
+      
 
+                  <table  tyle="width:50%" class="table table-striped table-hover table-bordered" >
+                    <thead>
+                      <tr>
+                        <td  >
+                          Código
+                        </td>
+                        <td >
+                          Nombre de cuenta
+                        </td>
+                        <td  >
+                          monto
+                        </td>
+                      </tr>
+                    </thead>
+                    <h3>INGRESOS / ENTRADAS</h3>
+                    <tbody v-for="(item, index) in ResultStatusDto.resultStatusDetails"
+                    :key="index">
+
+                      <tr  v-if=" item.accountNumber < 6000" class=" form-control-sm">
+                        <td>
+                         <h4> {{ item.accountNumber }}</h4> 
+                        </td>
+                        <td>
+                        <h4> {{ item.accountName }}</h4>   
+                        </td>
+                        <td>
+                          <base-input>
+                            <div class="input-group mb-3">
+                              <span
+                                class="input-group-text form-control-sm"
+                                id="basic-addon3"
+                                >$</span
+                              >
+                              <input
+                                class="form-control form-control-sm"
+                                v-model="item.amount"
+                                type="text"
+                                id="basic-url"
+                                
+                                aria-describedby="basic-addon3"
+                              />
+                            </div>
+                          </base-input>
+                        </td>
+                      </tr>
+                    </tbody>
+                      <h3>EGRESOS</h3>
+                    <tbody v-for="(item, index) in ResultStatusDto.resultStatusDetails"
+                    :key="index">
+
+                      <tr  v-if=" item.accountNumber >= 6000" class=" form-control-sm">
+                    <td>
+                         <h4> {{ item.accountNumber }}</h4> 
+                        </td>
+                        <td>
+                        <h4> {{ item.accountName }}</h4>   
+                        </td>
+                        <td>
+                          <base-input>
+                            <div class="input-group mb-3">
+                              <span
+                                class="input-group-text form-control-sm"
+                                id="basic-addon3"
+                                >$</span
+                              >
+                              <input
+                                class="form-control form-control-sm"
+                                v-model="item.amount"
+                                type="text"
+                                id="basic-url"
+                                aria-describedby="basic-addon3"
+                              />
+                            </div>
+                          </base-input>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                </div>
+        </div>
                   <div class="card-footer">
                     <base-button type="defalut">Cancelar</base-button>
-                    <base-button type="primary">Enviar</base-button>
+                    <base-button type="primary" v-on:click="SendSatud()"
+                      >Enviar</base-button
+                    >
                   </div>
                 </form>
               </card>
@@ -125,6 +203,7 @@
 <script>
 import flatPicker from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
+import { Table } from "element-ui";
 
 export default {
   layout: "DashboardLayout",
@@ -134,16 +213,23 @@ export default {
   data() {
     return {
       Accounts: [],
-      ResultStatusDetails: [
-      ]
+      ResultStatusDto: {
+        dateStart: "",
+        dateEnd: "",
+        code: "",
+        sisters: 0,
+        employees: 0,
+        institution: "",
+        resultStatusDetails: []
+      }
     };
   },
   methods: {
     AddResultStatusDetails(row) {
-      this.ResultStatusDetails.push({
+      this.ResultStatusDto.resultStatusDetails.push({
         accountNumber: row.accountNumber,
         id: row.id,
-        amount: "",
+        amount: 0,
         accountName: row.accountName
       });
     },
@@ -157,6 +243,14 @@ export default {
             this.AddResultStatusDetails(element)
           );
         })
+        .catch(({ response: err }) => {});
+    },
+    SendSatud: async function() {
+      var data = this.ResultStatusDto;
+      console.log(data);
+      this.$axios
+        .$post("/AccountingService/ResultStatus", data)
+        .then(res => {})
         .catch(({ response: err }) => {});
     }
   },

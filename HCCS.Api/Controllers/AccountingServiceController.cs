@@ -28,7 +28,11 @@ namespace HCCS.Api.Controllers
         public ActionResult<ResultStatusDetailsDto> Get(int id) => this._service.GetResultStatusWithDetails(id);
 
         [HttpPost("ResultStatus")]
-        public ActionResult<ResultStatusDetailsDto> Post(ResultStatusDetailsDto dto) => this._service.AddResultStatusWithDetails(dto);
+        public ActionResult<ResultStatusDetailsDto> Post(ResultStatusDetailsDto dto) {
+
+            
+            return this._service.AddResultStatusWithDetails(dto); 
+        }
 
         [HttpPut("ResultStatus")]
         public ActionResult<ResultStatusDetailsDto> Put(int id, ResultStatusDetailsDto dto) => this._service.UpdateResultStatusWithDetails(id, dto);

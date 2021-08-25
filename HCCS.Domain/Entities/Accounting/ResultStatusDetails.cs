@@ -6,9 +6,9 @@ namespace HCCS.Domain.Entities.Accounting
     {
         public int Id { get; set; }
         public int ResultStatusId { get; set; }
-        public int AccountingAccountNumber { get; set; }
+        public string AccountingAccountNumber { get; set; }
         public int AccountingAccountId { get; set; }
         public decimal? Amount { get; set; }
-        public virtual ResultStatus ResultStatus { get; set; }
+ 
     }
 }

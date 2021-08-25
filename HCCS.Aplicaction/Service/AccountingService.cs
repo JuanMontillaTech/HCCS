@@ -31,10 +31,13 @@ namespace HCCS.Aplicaction.Service
         {
 
             ResultStatus addResultStatus = _mapper.Map<ResultStatus>(resultStatusDetails);
+            List<ResultStatusDetails> details = new List<ResultStatusDetails>();
+            foreach (var item in resultStatusDetails.ResultStatusDetails)
+            {
+                details.Add(new ResultStatusDetails() { AccountingAccountId = item.Id, Amount = item.Amount , AccountingAccountNumber = item.AccountNumber});
+            }
+            addResultStatus.ResultStatusDetails = details;
             _repositoryResultStatus.Add(addResultStatus);
-            _unitOfWork.Commit();
-            resultStatusDetails.ResultStatusDetails.Select(c => { c.ResultStatusId = addResultStatus.Id; return c; }).ToList();
-            _repositoryResultStatusDetails.Add(_mapper.Map<ResultStatusDetails>(resultStatusDetails.ResultStatusDetails));
             _unitOfWork.Commit();
             return resultStatusDetails;
 
@@ -61,7 +64,7 @@ namespace HCCS.Aplicaction.Service
             ResultStatus addResultStatus = _mapper.Map<ResultStatus>(resultStatusDetails);
             _repositoryResultStatus.Update(addResultStatus);
             _unitOfWork.Commit();
-            resultStatusDetails.ResultStatusDetails.Select(c => { c.ResultStatusId = addResultStatus.Id; return c; }).ToList();
+          //   resultStatusDetails.ResultStatusDetails.Select(c => { c.ResultStatusId = addResultStatus.Id; return c; }).ToList();
             _repositoryResultStatusDetails.Update(_mapper.Map<ResultStatusDetails>(resultStatusDetails.ResultStatusDetails));
             _unitOfWork.Commit();
             return resultStatusDetails;
