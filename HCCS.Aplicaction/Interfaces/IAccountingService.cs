@@ -12,6 +12,6 @@ namespace HCCS.Aplicaction.Interfaces
         ResultStatusDetailsDto AddResultStatusWithDetails(ResultStatusDetailsDto resultStatusDetails); 
         ResultStatusDetailsDto GetResultStatusWithDetails(int id); 
         ResultStatusDetailsDto UpdateResultStatusWithDetails(int id, ResultStatusDetailsDto resultStatusDetails);
-        Page<ResultStatusDetailsDto> Paginate(int page, int limit);
+        Page<ResultStatusDto> Paginate(int page, int limit);
     }
 }

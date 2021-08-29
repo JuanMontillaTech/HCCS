@@ -34,7 +34,7 @@ namespace HCCS.Aplicaction.Service
             List<ResultStatusDetails> details = new List<ResultStatusDetails>();
             foreach (var item in resultStatusDetails.ResultStatusDetails)
             {
-                details.Add(new ResultStatusDetails() { AccountingAccountId = item.Id, Amount = item.Amount , AccountingAccountNumber = item.AccountNumber});
+                details.Add(new ResultStatusDetails() { AccountingAccountId = item.Id, Amount = item.Amount , AccountingAccountNumber = item.AccountingAccountNumber});
             }
             addResultStatus.ResultStatusDetails = details;
             _repositoryResultStatus.Add(addResultStatus);
@@ -43,15 +43,20 @@ namespace HCCS.Aplicaction.Service
 
         }
 
-        public List<AccountsDto> GetAllAccountingAccounts() => _mapper.Map<List<AccountsDto>>(_repositoryAccountingAccount.GetAll().Include(x => x.TypeAcountingAcount));
+        public List<AccountsDto> GetAllAccountingAccounts() { 
+            
+            var result  = _mapper.Map<List<AccountsDto>>(_repositoryAccountingAccount.GetAll().Include(x => x.TypeAcountingAcount));
+
+            return result;
+        }
 
 
         public ResultStatusDetailsDto GetResultStatusWithDetails(int id) => _mapper.Map<ResultStatusDetailsDto>(_repositoryResultStatus.GetAll().Include(x => x.ResultStatusDetails).Where(x => x.Id == id).First());
 
-        public Page<ResultStatusDetailsDto> Paginate(int page, int limit)
+        public Page<ResultStatusDto> Paginate(int page, int limit)
         {
-            var resultstatusdetails = _mapper.Map<List<ResultStatusDetailsDto>>(this._repositoryResultStatus.GetAll().Include(x => x.ResultStatusDetails).AsNoTracking().Skip((page - 1) * limit).Take(limit).ToList());
-            Page<ResultStatusDetailsDto> pageFill = new Page<ResultStatusDetailsDto>();
+            var resultstatusdetails = _mapper.Map<List<ResultStatusDto>>(this._repositoryResultStatus.GetAll().AsNoTracking().Skip((page - 1) * limit).Take(limit).ToList());
+            Page<ResultStatusDto> pageFill = new Page<ResultStatusDto>();
             pageFill.Items = resultstatusdetails;
             pageFill.TotalItems = resultstatusdetails.Count();
             pageFill.TotalPages = limit;

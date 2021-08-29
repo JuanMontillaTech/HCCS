@@ -3,14 +3,10 @@ using FluentValidation;
 
 using HCCS.Aplicaction.Interfaces;
 using HCCS.Aplicaction.Service;
+using HCCS.Domain.Entities.Accounting;
 
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Reflection;
-using System.Text;
-using System.Threading.Tasks; 
 
 namespace HCCS.Aplicaction
 {
@@ -22,7 +18,9 @@ namespace HCCS.Aplicaction
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly()); 
             services.AddTransient<IProfileService, ProfileService>();
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IAccountingService,  AccountingService>();
+            services.AddTransient<IAccountingService,  AccountingService>(); 
+            services.AddTransient(typeof(IRepositoryService<>), typeof(RepositoryService<>));
+
         }
     }
 }

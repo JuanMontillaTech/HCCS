@@ -1,12 +1,8 @@
 ﻿using HCCS.Aplicaction.DTOs;
 using HCCS.Aplicaction.Interfaces;
-using HCCS.Domain.Common;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using HCCS.Domain.Common; 
+using Microsoft.AspNetCore.Mvc; 
+using System.Collections.Generic; 
 
 namespace HCCS.Api.Controllers
 {
@@ -22,7 +18,7 @@ namespace HCCS.Api.Controllers
         }
 
         [HttpGet("ResultStatus")]
-        public Page<ResultStatusDetailsDto> Get(int page = 1, int limit = 5) => this._service.Paginate(page, limit);
+        public Page<ResultStatusDto> Get(int page = 1, int limit = 5) => this._service.Paginate(page, limit);
 
         [HttpGet("ResultStatus/{id}")]
         public ActionResult<ResultStatusDetailsDto> Get(int id) => this._service.GetResultStatusWithDetails(id);

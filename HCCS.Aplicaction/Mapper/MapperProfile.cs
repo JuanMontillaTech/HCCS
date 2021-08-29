@@ -28,7 +28,8 @@ namespace HCCS.Aplicaction.Mapper
             CreateMap<Page<Domain.Entities.Security.User>, Page<UserDTO>>();
             CreateMap<ResultStatus, ResultStatusDto>().ReverseMap();
             CreateMap<ResultStatusDetails, ResultStatusDetailsDto>().ReverseMap();
-            CreateMap<AccountingAccount, AccountsDto>().ReverseMap(); 
+            CreateMap<AccountingAccount, AccountsDto>().ReverseMap();
+         
 
         }
     }

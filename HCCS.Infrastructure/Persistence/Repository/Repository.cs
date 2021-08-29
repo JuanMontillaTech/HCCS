@@ -20,22 +20,25 @@ namespace HCCS.Infrastructure.Persistence.Repository
             _dbContext = applicationContext;
         }
 
-        public void Add(T entity)
+        public T Add(T entity)
         {
-            _entities.Add(entity);
+              _entities.Add(entity);
+            return entity;
         }
-        public void Update(T entity)
+        public T Update(T entity)
         {
 
             _entities.Attach(entity);
             var entry = _dbContext.Entry(entity);
             entry.State = EntityState.Modified;
+            return entity;
         }
 
-        public void AddRange(IEnumerable<T> entities)
+        public IEnumerable<T> AddRange(IEnumerable<T> entities)
         {
 
             _entities.AddRange(entities);
+            return entities;
         }
 
         public IQueryable<T> Find(Expression<Func<T, bool>> predicate)

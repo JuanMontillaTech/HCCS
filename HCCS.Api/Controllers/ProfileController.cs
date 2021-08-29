@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
+﻿ 
 using Microsoft.AspNetCore.Mvc;
 using HCCS.Aplicaction.DTOs;
 using HCCS.Aplicaction.Interfaces;
@@ -21,12 +20,10 @@ namespace HCCS.WebUI.Controllers
         }
 
         [HttpPost]
-        public ProfileSingleDTO Post(ProfileSingleDTO request)
-        {
-            return _profileService.Create(request);
+        public ProfileSingleDTO Post(ProfileSingleDTO request) => _profileService.Create(request);
             
 
-        }
+      
         [HttpGet("enabled")]
         public IEnumerable<ProfileDto> GetAllProfilesEnabled()
         {
@@ -41,11 +38,8 @@ namespace HCCS.WebUI.Controllers
         }
 
         [HttpGet]
-        public Page<ProfileDto> Get(int page = 1, int limit = 5)
-        { 
-
-            return _profileService.Paginate(page, limit);
-        }
+        public Page<ProfileDto> Get(int page = 1, int limit = 5) => _profileService.Paginate(page, limit);
+    
         [HttpGet("permissions")]
         public IEnumerable<PermissionDto> Get()
         {

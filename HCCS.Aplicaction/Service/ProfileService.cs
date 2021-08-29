@@ -102,11 +102,12 @@ namespace HCCS.Aplicaction.Service
 
         public ProfileSingleDTO Update(ProfileDto profileDto)
         {         
-            var profileForEdit = _mapper.Map<Profile>(profileDto);
-            var Profileedit = _repository.GetById(profileForEdit.Id);
-            Profileedit.Name = profileForEdit.Name;
-            Profileedit.Description = profileForEdit.Description;
-            profileDto.Status = profileForEdit.Status;
+            var profileForEdit = _mapper.Map<Profile>(profileDto); 
+            _repository.Update(profileForEdit);
+            //var Profileedit = _repository.GetById(profileForEdit.Id);
+            //Profileedit.Name = profileForEdit.Name;
+            //Profileedit.Description = profileForEdit.Description;
+            //profileDto.Status = profileForEdit.Status;
             _unitOfWork.Commit();
             var permisssions = _repositoryProfilePermission.GetAll().Where(x=> x.ProfileId == profileForEdit.Id).ToList();
             _repositoryProfilePermission.RemoveRange(permisssions);

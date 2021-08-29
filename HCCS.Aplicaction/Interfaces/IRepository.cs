@@ -10,9 +10,9 @@ namespace HCCS.Aplicaction.Interfaces
         T GetById(int id);
         IQueryable<T> GetAll();
         IQueryable<T> Find(Expression<Func<T, bool>> predicate);
-        void Update(T entity);
-        void Add(T entity);
-        void AddRange(IEnumerable<T> entities);
+        T Update(T entity);
+        T Add(T entity);
+        IEnumerable<T> AddRange(IEnumerable<T> entities);
         void Remove(T entity);
         void RemoveRange(IEnumerable<T> entities); 
 

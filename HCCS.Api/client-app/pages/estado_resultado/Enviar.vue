@@ -31,13 +31,11 @@
                     <div class="col-md-4">
                       <base-input
                         label="Para el mes"
-                        name="Para el mes"
+                        name="para el mes"
                         :rules="{ required: true }"
                       >
                         <flat-picker
-                          slot-scope="{ focus, blur }"
-                          @on-open="focus"
-                          @on-close="blur"
+                       
                           :config="{ allowInput: true }"
                           class="form-control datepicker"
                           v-model="ResultStatusDto.dateStart"
@@ -48,13 +46,11 @@
                     <div class="col-md-4">
                       <base-input
                         label="Terminando al"
-                        name="Terminando al"
+                        name="terminando al"
                         :rules="{ required: true }"
                       >
                         <flat-picker
-                          slot-scope="{ focus, blur }"
-                          @on-open="focus"
-                          @on-close="blur"
+                    
                           :config="{ allowInput: true }"
                           class="form-control datepicker"
                           v-model="ResultStatusDto.dateEnd"
@@ -68,15 +64,15 @@
                     <div class="col-md-4">
                       <base-input
                         label="Institucion"
-                        name="Institucion"
+                        name="institucion"
                         :rules="{ required: true }"
                         v-model="ResultStatusDto.institution"
                       ></base-input>
                     </div>
                     <div class="col-md-4">
                       <base-input
-                        label="Codigo"
-                        name="Codigo"
+                        label="Código"
+                        name="código"
                         :rules="{ required: true }"
                         v-model="ResultStatusDto.code"
                       ></base-input>
@@ -86,7 +82,7 @@
                     <div class="col-md-4">
                       <base-input
                         label="No. Hnas"
-                        name="No. Hnas"
+                        name="no. Hnas"
                         :rules="{ required: true }"
                       >
                       </base-input>
@@ -94,7 +90,7 @@
                     <div class="col-md-4">
                       <base-input
                         label="Empleados"
-                        name="Empleados"
+                        name="empleados"
                         :rules="{ required: true }"
                         v-model="ResultStatusDto.employees"
                       ></base-input>
@@ -104,17 +100,16 @@
          <div class="col-8">
       
 
-                  <table  tyle="width:50%" class="table table-striped table-hover table-bordered" >
+                  <table>
                     <thead>
                       <tr>
                         <td  >
                           Código
-                        </td>
-                        <td >
+                        -
                           Nombre de cuenta
                         </td>
                         <td  >
-                          monto
+                          Monto
                         </td>
                       </tr>
                     </thead>
@@ -122,26 +117,23 @@
                     <tbody v-for="(item, index) in ResultStatusDto.resultStatusDetails"
                     :key="index">
 
-                      <tr  v-if=" item.accountNumber < 6000" class=" form-control-sm">
+                      <tr  v-if=" item.accountNumber < 6000">
                         <td>
-                         <h4> {{ item.accountNumber }}</h4> 
-                        </td>
-                        <td>
-                        <h4> {{ item.accountName }}</h4>   
+                         <h4> {{ item.accountNumber }} - {{ item.accountName }}</h4>   
                         </td>
                         <td>
                           <base-input>
                             <div class="input-group mb-3">
                               <span
                                 class="input-group-text form-control-sm"
-                                id="basic-addon3"
+                                :id="item.accountNumber"
                                 >$</span
                               >
                               <input
                                 class="form-control form-control-sm"
                                 v-model="item.amount"
                                 type="text"
-                                id="basic-url"
+                                :id="item.accountNumber"
                                 
                                 aria-describedby="basic-addon3"
                               />
@@ -154,26 +146,23 @@
                     <tbody v-for="(item, index) in ResultStatusDto.resultStatusDetails"
                     :key="index">
 
-                      <tr  v-if=" item.accountNumber >= 6000" class=" form-control-sm">
+                      <tr  v-if=" item.accountNumber >= 6000" >
                     <td>
-                         <h4> {{ item.accountNumber }}</h4> 
-                        </td>
-                        <td>
-                        <h4> {{ item.accountName }}</h4>   
+                         <h4> {{ item.accountNumber }} - {{ item.accountName }}</h4>   
                         </td>
                         <td>
                           <base-input>
                             <div class="input-group mb-3">
                               <span
                                 class="input-group-text form-control-sm"
-                                id="basic-addon3"
+                                   :id="item.accountNumber"
                                 >$</span
                               >
                               <input
                                 class="form-control form-control-sm"
                                 v-model="item.amount"
                                 type="text"
-                                id="basic-url"
+                                 :id="item.accountNumber"
                                 aria-describedby="basic-addon3"
                               />
                             </div>
@@ -202,8 +191,7 @@
 </template>
 <script>
 import flatPicker from "vue-flatpickr-component";
-import "flatpickr/dist/flatpickr.css";
-import { Table } from "element-ui";
+import "flatpickr/dist/flatpickr.css"; 
 
 export default {
   layout: "DashboardLayout",
