@@ -12,7 +12,7 @@ namespace IdentityServer.Interfaces
             new User
             {
                 Id = "818727",
-                Username = "Alice",
+                Username = "cc",
                 Password = "pa$$word123",
                 Name= "Alice Smith",
                 GivenName= "Alice",

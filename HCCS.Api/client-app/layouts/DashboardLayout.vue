@@ -9,7 +9,7 @@
             icon: 'ni ni-shop text-primary',
           }">
           <sidebar-item :link="{ name: 'Enviar', path: '/estado_resultado/Enviar' }"></sidebar-item>
-          <sidebar-item :link="{ name: 'Enviados', path: '/alternative' }"></sidebar-item>
+          <sidebar-item :link="{ name: 'Enviados', path: '/estado_resultado/' }"></sidebar-item>
         </sidebar-item>
  
 
@@ -19,7 +19,7 @@
      
     </side-bar>
     <div class="main-content">
-      <dashboard-navbar :type="$route.name === 'alternative' ? 'light': 'default'"></dashboard-navbar>
+      <dashboard-navbar :type="$route.name === 'default' ? 'light': 'default'"></dashboard-navbar>
 
       <div @click="$sidebar.displaySidebar(false)">
         <nuxt></nuxt>
