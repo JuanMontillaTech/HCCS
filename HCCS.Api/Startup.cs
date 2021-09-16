@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using HCCS.WebUI.Security;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using HCCS.Api.Helpers;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace HCCS.Api
 {
@@ -27,28 +28,41 @@ namespace HCCS.Api
         public void ConfigureServices(IServiceCollection services)
         {
             #region Identity4Configure
-            services.AddAuthentication("Bearer")
-           .AddJwtBearer("Bearer", options =>
-           {
-               options.Authority = "https://localhost:5001";
-               options.TokenValidationParameters = new TokenValidationParameters
-               {
-                   ValidateAudience = false
-               };
-           });
 
-
-            services.AddAuthorization(options =>
+            // 1. Add Authentication Services
+            services.AddAuthentication(options =>
             {
-                options.AddPolicy(PolicyConst.ApiScope.PolicyName, policy =>
-                {
-                    policy.RequireAuthenticatedUser();
-                    policy.RequireClaim("scope", "api1");
-                });
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = "https://dev-3t6hnf4e.us.auth0.com/";
+                options.Audience = "https://localhost:44304/api";
             });
+            
+            
+            // services.AddAuthentication("Bearer")
+            //.AddJwtBearer("Bearer", options =>
+            //{
+            //    options.Authority = "https://localhost:5001";
+            //    options.TokenValidationParameters = new TokenValidationParameters
+            //    {
+            //        ValidateAudience = false
+            //    };
+            //});
+
+
+            //services.AddAuthorization(options =>
+            //{
+            //    options.AddPolicy(PolicyConst.ApiScope.PolicyName, policy =>
+            //    {
+            //        policy.RequireAuthenticatedUser();
+            //        policy.RequireClaim("scope", "api1");
+            //    });
+            //});
 
             #endregion
-             
+
             services.AddHttpContextAccessor();
             services.AddApplicationLayer();
             services.AddIdentityInfrastructure(Configuration);
@@ -106,10 +120,11 @@ namespace HCCS.Api
             app.UseRouting();
             app.UseCors("SpaLocal");
             app.UseAuthentication();
+
             app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers().RequireAuthorization(PolicyConst.ApiScope.PolicyName); 
+                endpoints.MapControllers(); 
             });
 
              

@@ -1,6 +1,6 @@
 <template>
   <div>
-    
+    <a @click="$auth.login()" class="link">sign in</a> and see what happens?
   </div>
 </template>
 <script>

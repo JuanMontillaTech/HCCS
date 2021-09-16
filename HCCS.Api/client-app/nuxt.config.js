@@ -74,34 +74,21 @@ module.exports = {
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/axios',
         '@nuxtjs/pwa',
-        '@nuxtjs/auth-next',
+        '@nuxtjs/auth-next'
     ],
-  router: {
-    middleware: ['auth']
-  },
+    router: {
+        middleware: ['auth']
+    },
     auth: {
         redirect: {
-            callback: '/callback',
-            logout: '/signed-out'
+            login: '/', // redirect user when not connected
+            callback: '/auth/signed-in'
         },
         strategies: {
-            social: {
-                scheme: 'oauth2',
-                endpoints: {
-                    authorization: 'https://localhost:5001/connect/authorize',
-                    token: 'https://localhost:5001/connect/token',
-                    userInfo: 'https://localhost:5001/connect/userinfo',
-                },
-                responseType: 'code',
-                grantType: 'authorization_code',
-                redirectUri: 'http://localhost:3000/callback',
-                logoutRedirectUri: "http://localhost:3000/signed-out",
-                codeChallengeMethod: 'S256',
-                clientId: 'nuxt',
-                responseMode: '',
-                accessType: undefined,
-                acrValues: '',
-                scope: ['openid', 'profile', 'api1'],
+            local: false,
+            auth0: {
+                domain: 'dev-3t6hnf4e.us.auth0.com',
+                clientId: 'p3hZamTkB25qQld5BfK73j5gDYT13qKe'
             }
         }
     },
